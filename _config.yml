@@ -1,0 +1,5 @@
+name: Your New Jekyll Site
+pygments: true
+
+raw_image_path: _photos
+processed_image_path: photos
