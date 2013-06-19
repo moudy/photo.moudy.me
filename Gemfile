@@ -5,3 +5,4 @@ gem 'jekyll-asset-pipeline', git: 'https://github.com/cs/jekyll-asset-pipeline.g
 gem 'hashie'
 gem 'yui-compressor'
 gem 'guard'
+gem 'mini_magick'

@@ -3,3 +3,14 @@ pygments: true
 
 raw_image_path: _photos
 processed_image_path: photos
+
+images:
+  raw_path: _photos
+  processed_path: photos
+  file_name_seperator: _
+  sizes:
+    large: 300x200
+    medium: 1200x800
+    small: 300x200
+    thumbnail: 120x30
+
