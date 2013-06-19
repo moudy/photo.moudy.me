@@ -3,35 +3,43 @@ require 'digest/md5'
 require 'mini_magick'
 
 class GalleryImage
-  attr_reader :file_name, :gallery
+  attr_reader :file_name, :gallery_slug
 
-  def initialize(file_name, gallery)
-    @file_name, @gallery = file_name, gallery
+  def initialize(file_name, gallery_slug)
+    @file_name, @gallery_slug = file_name, gallery_slug
   end
 
   def to_hash
     {
-      file_name: file_name
+      id: id
     }
   end
 
-  def build
+  def process_images
     sizes.each { |name, size| process(size) }
   end
+
+  def create_page
+    FileUtils.mkdir_p File.join(gallery_slug, id)
+  end
+
+  private
 
   def process(size)
     image = MiniMagick::Image.open(file_name)
     image.resize size
     actual_size = [image[:width], image[:height]].join('x')
 
-    image.write target_filename(actual_size)
+    image.write target_filepath(actual_size)
+  end
+
+  def target_filepath(size)
+    "#{File.join [processed_path, gallery_slug, target_filename(size)]}.jpg"
   end
 
   def target_filename(size)
     cache_bust = file.mtime.to_i
-    target_name = [id, cache_bust, size].join(seperator)
-
-    "#{File.join [processed_path, gallery.slug, target_name]}.jpg"
+    [id, cache_bust, size].join(seperator)
   end
 
   def sizes

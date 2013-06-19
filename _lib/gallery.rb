@@ -1,4 +1,5 @@
 require 'fileutils'
+require_relative 'gallery_render'
 require_relative 'gallery_builder'
 require_relative 'gallery_image'
 
@@ -9,9 +10,20 @@ class Gallery
     @folder = folder
   end
 
-  def build
+  def process_images
     FileUtils.mkdir_p path
-    images.map(&:build)
+    images.map(&:process_images)
+  end
+
+  def create_page
+    FileUtils.mkdir_p slug
+
+    File.open("#{slug}/index.html", 'w') do |f|
+      render = GalleryRender.new images.map(&:to_hash)
+      f.write render.render
+    end
+
+    images.map(&:create_page)
   end
 
   def to_hash
@@ -23,6 +35,8 @@ class Gallery
     }
   end
 
+  private
+
   def path
     File.join(GalleryBuilder.processed_image_path, slug)
   end
@@ -31,10 +45,8 @@ class Gallery
     name.downcase.gsub(/[^a-z0-9\-_]+/, '-')
   end
 
-  private
-
   def images
-    @_images ||= image_names.map { |i| GalleryImage.new(i, self) }
+    @_images ||= image_names.map { |i| GalleryImage.new(i, slug) }
   end
 
   def image_names

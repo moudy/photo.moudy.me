@@ -2,8 +2,17 @@
 
 require_relative '_lib/gallery_builder'
 
-task :process_images do
-  g = GalleryBuilder.new
-  g.build
+task :gallery_builder do
+  $gb = GalleryBuilder.new
+end
+
+task :process_images => :gallery_builder do
+  puts 'processing images...'
+  $gb.process_images
+end
+
+task :create_pages => :gallery_builder do
+  puts 'creating pages...'
+  $gb.create_pages
 end
 

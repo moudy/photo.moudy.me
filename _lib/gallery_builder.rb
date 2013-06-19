@@ -3,8 +3,12 @@ require_relative 'gallery'
 
 class GalleryBuilder
 
-  def build
-   galleries.map(&:build)
+  def process_images
+   galleries.map(&:process_images)
+  end
+
+  def create_pages
+    galleries.map(&:create_page)
   end
 
   def self.config

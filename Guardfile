@@ -11,7 +11,7 @@ end
 module ::Guard
   class RakeDev < ::Guard::Guard
     def run_on_changes(paths)
-      system 'rake process_images'
+      system 'rake create_pages'
     end
   end
 end
@@ -22,5 +22,5 @@ end
 
 guard 'rake_dev' do
   watch('Rakefile')
-  watch(%{_plugins/.*})
+  watch(%{_lib/.*})
 end
