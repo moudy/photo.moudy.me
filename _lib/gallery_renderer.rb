@@ -1,5 +1,3 @@
-require 'mustache'
-
 class GalleryRender
   attr_reader :data
 
@@ -8,13 +6,13 @@ class GalleryRender
   end
 
   def render
-    Mustache.render(template, images: data)
+    Liquid::Template.parse(template).render data
   end
 
   private
 
   def template
-    @_template ||= File.open("_templates/gallery.mustache", "rb").read
+    @_template ||= File.open("_templates/gallery.html", "rb").read
   end
 
 end

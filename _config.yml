@@ -9,7 +9,7 @@ images:
   processed_path: photos
   file_name_seperator: _
   sizes:
-    large: 300x200
+    large: 3000x1000
     medium: 1200x800
     small: 300x200
     thumbnail: 120x30

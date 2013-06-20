@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+<ul>
+{% for image in images %}
+  {{image.gallery_slug}}
+  <li>
+    <a href="/{{image.gallery_slug}}/{{image.id}}">
+      <img src="{{ image.thumbnail_url }}" alt="{{image.id}}" class="gallery-thumbnail" />
+    </a>
+  </li>
+{% endfor %}
+</ul>
+
+
+
+{% if image %}
+  <img src="{{ image.medium_url }}" alt="{{image.id}}" class="gallery-thumbnail" />
+  <a href="/{{image.gallery_slug}}">back to thumbnails</a>
+{% endif %}
+

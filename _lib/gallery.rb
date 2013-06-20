@@ -1,5 +1,5 @@
 require 'fileutils'
-require_relative 'gallery_render'
+require_relative 'gallery_renderer'
 require_relative 'gallery_builder'
 require_relative 'gallery_image'
 
@@ -19,7 +19,7 @@ class Gallery
     FileUtils.mkdir_p slug
 
     File.open("#{slug}/index.html", 'w') do |f|
-      render = GalleryRender.new images.map(&:to_hash)
+      render = GalleryRender.new('images' => images.map(&:to_hash))
       f.write render.render
     end
 

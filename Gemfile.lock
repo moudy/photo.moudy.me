@@ -54,7 +54,6 @@ GEM
     method_source (0.8.1)
     mini_magick (3.6.0)
       subexec (~> 0.2.1)
-    mustache (0.99.4)
     open4 (1.3.0)
     posix-spawn (0.3.6)
     pry (0.9.12.2)
@@ -87,5 +86,4 @@ DEPENDENCIES
   jekyll (~> 1.0)
   jekyll-asset-pipeline!
   mini_magick
-  mustache
   yui-compressor

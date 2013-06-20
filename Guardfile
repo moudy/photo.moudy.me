@@ -23,4 +23,5 @@ end
 guard 'rake_dev' do
   watch('Rakefile')
   watch(%{_lib/.*})
+  watch(%{_templates/.*})
 end
