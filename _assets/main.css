@@ -34,3 +34,18 @@ img {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
+a {
+  color: #444;
+  text-decoration: none;
+}
+
+a::visted {
+  color:#444;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

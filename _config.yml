@@ -13,11 +13,11 @@ images:
   file_name_seperator: _
   sizes:
     large: 3000x1000
-    medium: 1200x800
-    small: 300x200
-    thumbnail: 120x30
+    medium: 1200x1200
+    small: 600x600
+    thumbnail: 300x300
 
 # hash passed into gallery.html
 view:
   site:
-    title: Moudy Photo
+    title: Moudy

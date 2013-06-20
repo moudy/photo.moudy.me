@@ -1,0 +1,59 @@
+#header {
+  text-align: center;
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.title-link {
+  display: block;
+  margin: 20px 0 0;
+}
+
+.title-link h1, .title-link h2 {
+  display: inline;
+  font-size: 22px;
+}
+
+.title-link h2 {
+  font-weight: 200;
+  color: #aaa;
+}
+
+.my-name {
+  font-weight: 500;
+}
+
+.gallery-menu {
+  font-size: 14px;
+  padding: 10px;
+  position: absolute;
+  width: 100%;
+}
+
+.gallery-menu.fixed {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.gallery-menu-item {
+  display: inline-block;
+}
+
+.gallery-menu-link {
+  display: block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #666;
+}
+
+.gallery-menu-link:hover {
+  color: #444;
+  background-color: #eee;
+}
+
+.gallery-menu-link.active {
+  color: #000;
+  background-color: #ddd;
+}

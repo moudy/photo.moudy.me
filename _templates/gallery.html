@@ -4,24 +4,28 @@ layout: default
 
 <header id="header">
   <div class="container">
-    <a href="/">{{site.title}}</a>
+    <a class="title-link" href="/"><h1 class="my-name">{{site.title}}</h1> <h2>Photography</h2></a>
 
-    <ul class="gallery-menu">
-      {% for gallery in galleries %}
-      <a href="/{{gallery.slug}}">{{gallery.name}}</a>
-      {% endfor %}
-    </ul>
+    <div class="gallery-menu">
+      <ul>
+        {% for gallery in galleries %}
+        <li class="gallery-menu-item">
+        <a class="gallery-menu-link" data-slug="{{gallery.slug}}" href="/{{gallery.slug}}">{{gallery.name}}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 </header>
 
 <div class="container">
 
-<ul>
+<ul class="gallery-grid">
 {%unless image %}
   {% for image in images %}
-    <li>
-      <a href="/{{image.gallery_slug}}/{{image.id}}">
-        <img src="{{ image.thumbnail_url }}" alt="{{image.id}}" class="gallery-thumbnail" />
+    <li class="gallery-grid-item">
+      <a class="gallery-grid-link" href="/{{image.gallery_slug}}/{{image.id}}">
+        <img src="{{ image.thumbnail_url }}" alt="{{image.id}}" class="gallery-grid-image" />
       </a>
     </li>
   {% endfor %}
