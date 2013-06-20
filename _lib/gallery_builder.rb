@@ -8,7 +8,22 @@ class GalleryBuilder
   end
 
   def create_pages
-    galleries.map(&:create_page)
+    payload = {
+      'galleries' => galleries.map { |g| g.to_hash(min: true) }
+    }
+
+    galleries.map { |g| g.create_page payload }
+
+    # add all images and shuffle
+    data = payload.merge({
+      'images' => galleries.map { |g| g.images.map(&:to_hash) }.flatten.shuffle
+    })
+
+    # create main page with all images
+    File.open('index.html', 'w') do |f|
+      render = GalleryRender.new(data)
+      f.write render.render
+    end
   end
 
   def self.config
@@ -27,11 +42,11 @@ class GalleryBuilder
     File.join GalleryBuilder.config['source'], GalleryBuilder.image_config['processed_path']
   end
 
-  private
-
   def galleries
     @_galleries ||= folders.map { |f| Gallery.new(f) }
   end
+
+  private
 
   def folders
     @_folders ||= Dir.glob("#{GalleryBuilder.raw_image_path}/*").select { |f| File.directory?(f) }

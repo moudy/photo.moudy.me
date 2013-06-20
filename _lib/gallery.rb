@@ -15,24 +15,36 @@ class Gallery
     images.map(&:process_images)
   end
 
-  def create_page
+  def create_page(payload)
     FileUtils.mkdir_p slug
+    data = payload.merge('images' => images.map(&:to_hash))
 
     File.open("#{slug}/index.html", 'w') do |f|
-      render = GalleryRender.new('images' => images.map(&:to_hash))
+      render = GalleryRender.new(data)
       f.write render.render
     end
 
-    images.map(&:create_page)
+    images.map { |i| i.create_page(data) }
   end
 
-  def to_hash
-    {
-      name: name,
-      slug: slug,
-      count: count,
-      image_names: images.map(&:to_hash)
+  def to_hash(options = {})
+    h = {
+      'name' => name,
+      'slug' => slug
     }
+
+    unless options[:min]
+      h.merge!({
+        'count' => count,
+        'image_names' => images.map(&:to_hash)
+      })
+    end
+
+    h
+  end
+
+  def images
+    @_images ||= image_names.map { |i| GalleryImage.new(i, slug) }
   end
 
   private
@@ -43,10 +55,6 @@ class Gallery
 
   def slug
     name.downcase.gsub(/[^a-z0-9\-_]+/, '-')
-  end
-
-  def images
-    @_images ||= image_names.map { |i| GalleryImage.new(i, slug) }
   end
 
   def image_names

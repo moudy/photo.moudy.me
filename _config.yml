@@ -4,6 +4,9 @@ pygments: true
 raw_image_path: _photos
 processed_image_path: photos
 
+asset_pipeline:
+  gzip: true
+
 images:
   raw_path: _photos
   processed_path: photos
@@ -14,3 +17,7 @@ images:
     small: 300x200
     thumbnail: 120x30
 
+# hash passed into gallery.html
+view:
+  site:
+    title: Moudy Photo

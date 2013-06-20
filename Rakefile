@@ -3,6 +3,7 @@
 require_relative '_lib/gallery_builder'
 
 task :gallery_builder do
+  puts 'new gallery builder'
   $gb = GalleryBuilder.new
 end
 
@@ -16,3 +17,7 @@ task :create_pages => :gallery_builder do
   $gb.create_pages
 end
 
+task :build_site => [:process_images, :create_pages] do
+end
+
+task :default => :build_site

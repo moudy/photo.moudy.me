@@ -6,7 +6,11 @@ class GalleryRender
   end
 
   def render
-    Liquid::Template.parse(template).render data
+    Liquid::Template.parse(template).render view_data.merge(data)
+  end
+
+  def view_data
+    GalleryBuilder.config['view']
   end
 
   private

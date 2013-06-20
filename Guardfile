@@ -3,7 +3,7 @@ require 'guard/guard'
 module ::Guard
   class Images < ::Guard::Guard
     def run_on_changes(paths)
-      system 'rake process_images'
+      system 'rake'
     end
   end
 end

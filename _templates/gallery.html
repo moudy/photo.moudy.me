@@ -2,18 +2,36 @@
 layout: default
 ---
 
+<header id="header">
+  <div class="container">
+    <a href="/">{{site.title}}</a>
+
+    <ul class="gallery-menu">
+      {% for gallery in galleries %}
+      <a href="/{{gallery.slug}}">{{gallery.name}}</a>
+      {% endfor %}
+    </ul>
+  </div>
+</header>
+
+<div class="container">
+
 <ul>
-{% for image in images %}
-  {{image.gallery_slug}}
-  <li>
-    <a href="/{{image.gallery_slug}}/{{image.id}}">
-      <img src="{{ image.thumbnail_url }}" alt="{{image.id}}" class="gallery-thumbnail" />
-    </a>
-  </li>
-{% endfor %}
+{%unless image %}
+  {% for image in images %}
+    <li>
+      <a href="/{{image.gallery_slug}}/{{image.id}}">
+        <img src="{{ image.thumbnail_url }}" alt="{{image.id}}" class="gallery-thumbnail" />
+      </a>
+    </li>
+  {% endfor %}
+{% endunless %}
 </ul>
 
+</div>
 
+
+{{image.gallery_slug}}
 
 {% if image %}
   <img src="{{ image.medium_url }}" alt="{{image.id}}" class="gallery-thumbnail" />

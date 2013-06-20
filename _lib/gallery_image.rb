@@ -21,11 +21,13 @@ class GalleryImage
     sizes.each { |name, size| process(name, size) }
   end
 
-  def create_page
+  def create_page(payload)
     FileUtils.mkdir_p File.join(gallery_slug, id)
 
+    data = payload.merge('image' => self.to_hash)
+
     File.open("#{gallery_slug}/#{id}/index.html", 'w') do |f|
-      render = GalleryRender.new('image' => self.to_hash)
+      render = GalleryRender.new(data)
       f.write render.render
     end
   end
