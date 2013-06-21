@@ -15,6 +15,26 @@ window.App.Image = Backbone.Model.extend({
     return this.gallery().get('name');
   }
 
+, dimensionsString: function () {
+    return this.get('medium_url').split('_')[2].replace('.jpg','');
+  }
+
+
+, dimensions: function () {
+    var s = this.dimensionsString().split('x');
+
+    return {
+      width: s[0]
+    , height: s[1]
+    };
+  }
+
+, ratio: function () {
+    var d = this.dimensions();
+
+    return d.width / d.height;
+  }
+
 });
 
 window.App.State = Backbone.Model.extend({

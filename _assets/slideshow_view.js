@@ -23,7 +23,7 @@ window.App.SlideshowView = Backbone.View.extend({
 
 , onResize: function () {
     delete this._mesuremants;
-    this.positionImage();
+    if (this.model.currentImage()) this.positionImage();
   }
 
 , events: {
@@ -71,6 +71,9 @@ window.App.SlideshowView = Backbone.View.extend({
 
     model || (model = this.model.currentImage());
     $el || ($el = this.$img);
+
+    this.canvasRatio();
+    model.ratio();
 
     var height = m.canvasHeight - (this.imageMargin.top + this.imageMargin.bottom);
     var width = m.canvasWidth - (this.imageMargin.right + this.imageMargin.left);
