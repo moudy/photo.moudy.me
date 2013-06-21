@@ -1,10 +1,21 @@
 require 'jekyll'
+require 'json'
 require_relative 'gallery'
 
 class GalleryBuilder
 
   def process_images
    galleries.map(&:process_images)
+  end
+
+  def generate_json
+    r = {}
+    r['galleries'] = galleries.map { |g| g.to_hash(min: true) }
+    r['images'] = all_images
+
+    File.open('_assets/data.js', 'w') do |f|
+      f.write "window.App.data = #{r.to_json};"
+    end
   end
 
   def create_pages
@@ -16,7 +27,7 @@ class GalleryBuilder
 
     # add all images and shuffle
     data = payload.merge({
-      'images' => galleries.map { |g| g.images.map(&:to_hash) }.flatten.shuffle
+      'images' => all_images.shuffle
     })
 
     # create main page with all images
@@ -47,6 +58,10 @@ class GalleryBuilder
   end
 
   private
+
+  def all_images
+    galleries.map { |g| g.images.map(&:to_hash) }.flatten
+  end
 
   def folders
     @_folders ||= Dir.glob("#{GalleryBuilder.raw_image_path}/*").select { |f| File.directory?(f) }

@@ -1,0 +1,17 @@
+.image-slideshow {
+  position: fixed;
+  top: -9999px;
+  right: -9999px;
+  height: 100%;
+  width: 100%;
+  background: red;
+
+  -webkit-transition: -webkit-transform 0.2s ease-in-out;
+  -webkit-transform: scale(1.2);
+}
+
+.image-slideshow.active {
+  top: 0;
+  right: 0;
+  -webkit-transform: scale(1);
+}

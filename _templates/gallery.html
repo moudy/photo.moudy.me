@@ -20,11 +20,11 @@ layout: default
 
 <div class="container">
 
-<ul class="gallery-grid">
+<ul id="gallery" class="gallery-grid">
 {%unless image %}
   {% for image in images %}
     <li class="gallery-grid-item">
-      <a class="gallery-grid-link" href="/{{image.gallery_slug}}/{{image.id}}">
+      <a class="gallery-grid-link" data-id="{{image.id}}" href="/{{image.gallery_slug}}/{{image.id}}">
         <img src="{{ image.thumbnail_url }}" alt="{{image.id}}" class="gallery-grid-image" />
       </a>
     </li>
@@ -34,11 +34,13 @@ layout: default
 
 </div>
 
-
+<div id="slideshow" class="image-slideshow">
+fooooooooo
 {{image.gallery_slug}}
 
 {% if image %}
   <img src="{{ image.medium_url }}" alt="{{image.id}}" class="gallery-thumbnail" />
   <a href="/{{image.gallery_slug}}">back to thumbnails</a>
 {% endif %}
+</div>
 

@@ -17,6 +17,11 @@ task :create_pages => :gallery_builder do
   $gb.create_pages
 end
 
+task :generate_json => :gallery_builder do
+  puts 'generating json...'
+  $gb.generate_json
+end
+
 task :build_site => [:process_images, :create_pages] do
 end
 

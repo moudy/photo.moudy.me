@@ -11,6 +11,7 @@
     - /_assets/main.css
     - /_assets/header.css
     - /_assets/gallery_grid.css
+    - /_assets/slideshow.css
     {% endcss_asset_tag %}
 
   </head>
@@ -22,11 +23,16 @@
       window.App = {}
     </script>
     {% javascript_asset_tag global %}
+    - /_assets/data.js
     - /_assets/jquery.js
     - /_assets/underscore.js
     - /_assets/backbone.js
+    - /_assets/image.js
+    - /_assets/images.js
     - /_assets/state.js
     - /_assets/header_view.js
+    - /_assets/gallery_view.js
+    - /_assets/slideshow_view.js
     - /_assets/app.js
     {% endjavascript_asset_tag %}
 

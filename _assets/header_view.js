@@ -13,11 +13,13 @@ window.App.HeaderView = Backbone.View.extend({
     e.preventDefault();
     var slug = $(e.currentTarget).data('slug');
 
-    this.model.set({ gallery:slug });
+    this.model.set({
+      gallery:slug
+    , imageId:null
+    });
   }
 
 , onGalleryChange: function (state, slug) {
-    console.log(arguments);
     this.$('.active').removeClass('active');
     this.$('[data-slug="' + slug + '"]').addClass('active');
   }
