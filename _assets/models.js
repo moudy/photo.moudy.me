@@ -6,6 +6,15 @@ window.App.Image = Backbone.Model.extend({
   path: function () {
     return [this.get('gallery_slug'), this.id].join('/');
   }
+
+, gallery: function () {
+    return App.galleries.get(this.get('gallery_slug'));
+  }
+
+, galleryName: function () {
+    return this.gallery().get('name');
+  }
+
 });
 
 window.App.State = Backbone.Model.extend({
@@ -20,17 +29,19 @@ window.App.State = Backbone.Model.extend({
 , setImageById: function (id) {
     var model = App.images.get(id);
 
-    this.set({
-      gallery: model.get('gallery_slug')
-    , imageId: model.id
-    })
+    this.set({ imageId: model.id });
   }
 
 , path: function () {
     var parts = [];
 
     if (this.get('gallery')) parts.push(this.get('gallery'));
-    if (this.get('imageId')) parts.push(this.get('imageId'));
+
+    if (this.get('imageId')) {
+      parts = [];
+      parts.push(this.currentImage().get('gallery_slug'));
+      parts.push(this.get('imageId'));
+    }
 
     return '/' + parts.join('/');
   }
@@ -52,7 +63,10 @@ window.App.State = Backbone.Model.extend({
   }
 
 , currentGallery: function () {
-    return App.galleries.get(this.get('gallery'));
+    var gallery = App.galleries.get(this.get('gallery'));
+    if (!gallery) gallery = App.galleries.where({ slug:'' })[0];
+
+    return gallery;
   }
 
 , currentImageIndex: function () {

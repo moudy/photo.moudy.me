@@ -1,4 +1,10 @@
+html {
+  background-color: #eee;
+}
+
 body {
+  background-color: white;
+  font-weight: 200;
   font-size: 1em;
   line-height: 1.4;
   color: #444;
@@ -48,4 +54,13 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+#footer {
+  margin: 20px 0 0;
+  padding: 60px 10px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+  color: #999;
+  background-color: #eee;
 }

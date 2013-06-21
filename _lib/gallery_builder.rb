@@ -10,6 +10,7 @@ class GalleryBuilder
 
   def generate_json
     r = {}
+
     r['galleries'] = galleries.map { |g| g.to_hash(min: true) }
     r['images'] = all_images
 
@@ -54,7 +55,7 @@ class GalleryBuilder
   end
 
   def galleries
-    @_galleries ||= folders.map { |f| Gallery.new(f) }
+    @_galleries ||= folders.map { |f| Gallery.new(f) }.push(SuperGallery.new)
   end
 
   private

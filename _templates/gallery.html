@@ -9,11 +9,13 @@ layout: default
   <div class="gallery-menu">
     <ul>
       {% for gallery in galleries %}
+      {% unless gallery.name == "All Photos" %}
       <li class="gallery-menu-item">
         <a class="gallery-menu-link{% if current_gallery.slug == gallery.slug %} active{% endif %}" data-slug="{{gallery.slug}}" href="/{{gallery.slug}}">
           {{gallery.name}}
         </a>
       </li>
+      {% endunless %}
       {% endfor %}
     </ul>
   </div>
@@ -31,11 +33,15 @@ layout: default
 {% endunless %}
 </ul>
 
+<footer id="footer">
+  For any inquiries about prints or just to say hi, please contact me at <a id="mailto-link" href="">me[at]moudy.me</a>, thanks for looking.
+</footer>
+
 <div id="slideshow" class="image-slideshow{% if image %} active{% endif %}">
   {% if image %}
-    <img src="{{ image.medium_url }}" alt="{{image.gallery_slug}} {{image.id}}" class="gallery-image" />
+    <img src="{{ image.medium_url }}" alt="{{image.gallery_slug}} {{image.id}}" class="image-slideshow-image" />
   {% else %}
-    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="gallery-image">
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="image-slideshow-image">
   {% endif %}
 
   <div id="image-slideshow-menu" class="image-slideshow-menu">
@@ -52,6 +58,8 @@ layout: default
     <h3 class="image-slideshow-title">
       {% if current_gallery %}
         {{ current_gallery.name }}
+      {% else %}
+        All Photos
       {% endif %}
     </h3>
   </div>

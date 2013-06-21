@@ -11,6 +11,10 @@
   -webkit-transform: scale(1.2);
 }
 
+.image-slideshow-image {
+  cursor: pointer;
+}
+
 .image-slideshow.active {
   top: 0;
   right: 0;

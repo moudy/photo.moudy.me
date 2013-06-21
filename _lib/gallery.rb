@@ -76,3 +76,17 @@ class Gallery
 end
 
 
+class SuperGallery
+  def to_hash(options = {})
+    h = {
+      'name' => 'All Photos',
+      'slug' => ''
+    }
+  end
+
+  def create_page(options = {}); end
+
+  def process_images; end
+
+  def images; []; end
+end
