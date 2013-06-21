@@ -10,7 +10,15 @@ class GalleryRender
   end
 
   def view_data
-    GalleryBuilder.config['view']
+    page_title = ['Moudy', 'Photography']
+
+    if current_gallery = data['current_gallery']
+      page_title.unshift current_gallery['name']
+    end
+
+    GalleryBuilder.config['view'].merge({
+      'page_title' => page_title.join(' | ')
+    })
   end
 
   private

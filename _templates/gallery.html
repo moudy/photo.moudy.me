@@ -1,24 +1,23 @@
 ---
+title: {{page_title}}
 layout: default
 ---
 
 <header id="header">
-  <div class="container">
-    <a class="title-link" href="/"><h1 class="my-name">{{site.title}}</h1> <h2>Photography</h2></a>
+  <a class="title-link" href="/"><h1 class="my-name">{{site.title}}</h1> <h2>Photography</h2></a>
 
-    <div class="gallery-menu">
-      <ul>
-        {% for gallery in galleries %}
-        <li class="gallery-menu-item">
-        <a class="gallery-menu-link" data-slug="{{gallery.slug}}" href="/{{gallery.slug}}">{{gallery.name}}</a>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
+  <div class="gallery-menu">
+    <ul>
+      {% for gallery in galleries %}
+      <li class="gallery-menu-item">
+        <a class="gallery-menu-link{% if current_gallery.slug == gallery.slug %} active{% endif %}" data-slug="{{gallery.slug}}" href="/{{gallery.slug}}">
+          {{gallery.name}}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
   </div>
 </header>
-
-<div class="container">
 
 <ul id="gallery" class="gallery-grid">
 {%unless image %}
@@ -32,15 +31,34 @@ layout: default
 {% endunless %}
 </ul>
 
+<div id="slideshow" class="image-slideshow{% if image %} active{% endif %}">
+  {% if image %}
+    <img src="{{ image.medium_url }}" alt="{{image.gallery_slug}} {{image.id}}" class="gallery-image" />
+  {% else %}
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="gallery-image">
+  {% endif %}
+
+  <div id="image-slideshow-menu" class="image-slideshow-menu">
+    <div class="image-slideshow-controls">
+      <a href="#" class="previous"title="previous">&larr;</a>
+      <a href="#" class="back-to-gallery thumbnail-icon" title="back to gallery">
+        {% for num in (1...9) %}
+          <span class="square"></span>
+        {% endfor %}
+      </a>
+      <a href="#" class="next" title="next">&rarr;</a>
+    </div>
+
+    <h3 class="image-slideshow-title">
+      {% if current_gallery %}
+        {{ current_gallery.name }}
+      {% endif %}
+    </h3>
+  </div>
 </div>
 
-<div id="slideshow" class="image-slideshow">
-fooooooooo
-{{image.gallery_slug}}
-
-{% if image %}
-  <img src="{{ image.medium_url }}" alt="{{image.id}}" class="gallery-thumbnail" />
-  <a href="/{{image.gallery_slug}}">back to thumbnails</a>
-{% endif %}
-</div>
+<script type="text/javascript">
+  window.App.bootstrap.gallery = "{{current_gallery.slug}}";
+  window.App.bootstrap.imageId = "{{image.id}}";
+</script>
 

@@ -14,25 +14,28 @@
     - /_assets/slideshow.css
     {% endcss_asset_tag %}
 
+    <script type="text/javascript">
+      window.App = {}
+      window.App.bootstrap = {}
+    </script>
+
   </head>
   <body>
 
     {{ content }}
 
-    <script type="text/javascript">
-      window.App = {}
-    </script>
     {% javascript_asset_tag global %}
     - /_assets/data.js
     - /_assets/jquery.js
     - /_assets/underscore.js
     - /_assets/backbone.js
-    - /_assets/image.js
-    - /_assets/images.js
-    - /_assets/state.js
+    - /_assets/gallery_template.js
+    - /_assets/models.js
+    - /_assets/collections.js
     - /_assets/header_view.js
     - /_assets/gallery_view.js
     - /_assets/slideshow_view.js
+    - /_assets/slideshow_menu_view.js
     - /_assets/app.js
     {% endjavascript_asset_tag %}
 

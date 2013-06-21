@@ -17,7 +17,11 @@ class Gallery
 
   def create_page(payload)
     FileUtils.mkdir_p slug
-    data = payload.merge('images' => images.map(&:to_hash))
+    data = payload.merge({
+      'images' => images.map(&:to_hash),
+      'current_gallery' => self.to_hash(min: true)
+    })
+
 
     File.open("#{slug}/index.html", 'w') do |f|
       render = GalleryRender.new(data)

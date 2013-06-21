@@ -1,12 +1,11 @@
 #header {
   text-align: center;
   position: relative;
-  margin-bottom: 50px;
+  margin: 20px 0 50px;
 }
 
 .title-link {
   display: block;
-  margin: 20px 0 0;
 }
 
 .title-link h1, .title-link h2 {
