@@ -1,9 +1,9 @@
 window.App.SlideshowView = Backbone.View.extend({
   imageMargin: {
-    top: 10
-  , left: 10
-  , right: 10
-  , bottom: 10
+    top: 20
+  , left: 20
+  , right: 20
+  , bottom: 20
   }
 
 , initialize: function () {
@@ -11,7 +11,10 @@ window.App.SlideshowView = Backbone.View.extend({
     this.$window.on('resize', _.throttle(this.onResize.bind(this), 100));
     this.$img = this.$('.image-slideshow-image');
     this.$menu = this.$('#image-slideshow-menu'),
+
     this.listenTo(this.model, 'change:imageId', this.onImageIdChange);
+    this.listenTo(App.imageLoader, 'loading', this.onLoading);
+    this.listenTo(App.imageLoader, 'loaded', this.onLoaded);
 
     new App.SlideshowMenuView({
       el: this.$menu,
@@ -19,6 +22,19 @@ window.App.SlideshowView = Backbone.View.extend({
     });
 
     if (this.model.currentImage()) setTimeout(this.positionImage.bind(this), 0);
+  }
+
+, onLoaded: function () {
+    this._loading = false;
+    this.$el.removeClass('is-loading');
+  }
+
+, onLoading: function () {
+    this._loading = true;
+
+    setTimeout(function () {
+      if (this._loading) this.$el.addClass('is-loading');
+    }.bind(this), 100)
   }
 
 , onResize: function () {
@@ -51,16 +67,21 @@ window.App.SlideshowView = Backbone.View.extend({
 , measurements: function () {
     if (this._mesuremants) return this._mesuremants;
 
-    var imageMargin = this.imageMargin;
+    var imageMargin = this.imageMargin
+      , windowWidth = this.$el.outerWidth()
+      , windowHeight = this.$el.outerHeight();
 
     var m = {
       menuHeight: this.$menu.outerHeight()
-    , canvasWidth: this.$el.outerWidth() - (imageMargin.right + imageMargin.left)
+    , canvasWidth: windowWidth - (imageMargin.right + imageMargin.left)
+    , windowWidth: windowWidth
+    , windowHeight: windowHeight
     };
 
-    m.canvasHeight = (this.$el.outerHeight() - m.menuHeight) - (imageMargin.top + imageMargin.bottom);
+    m.canvasHeight = (windowHeight - m.menuHeight) - (imageMargin.top + imageMargin.bottom);
 
-    return this._measurements = m;
+    this._measurements = m;
+    return m;
   }
 
 , canvasRatio: function () {
@@ -68,29 +89,95 @@ window.App.SlideshowView = Backbone.View.extend({
     return m.canvasWidth / m.canvasHeight;
   }
 
-, positionImage: function (model, $el) {
+, windowRatio: function () {
     var m = this.measurements();
+    return m.windowWidth / m.canvasHeight;
+  }
 
+, _fullscreenCSS: function (model) {
+    var m = this.measurements()
+      , imageDimensions = model.dimensions()
+      , height = m.windowHeight
+      , width = m.windowWidth
+      , top = 0
+      , left = 0
+      , targetWidth = model.widthFromHeight(height)
+      , targetHeight = model.heightFromWidth(width)
+      , css;
+
+    if (targetWidth < width) {
+      css = {
+        width: width + 'px'
+      , height: 'auto'
+      , top: Math.round(top + (height / 2) + - (targetHeight / 2)) + 'px'
+      , left: 0 + 'px'
+      };
+    } else {
+      css = {
+        width: 'auto'
+      , height: height + 'px'
+      , top: 0
+      , left: Math.round(left + (width / 2) - (targetWidth / 2)) + 'px'
+      };
+    }
+
+
+    if (this.model.isDark()) {
+      css.top = 'auto'
+      css.bottom = 0;
+    } else {
+      css.bottom = 'auto'
+    }
+
+
+    return css;
+  }
+
+, _normalCSS: function (model) {
+    var m = this.measurements()
+      , imageDimensions = model.dimensions()
+      , height = m.canvasHeight
+      , width = m.canvasWidth
+      , top = 0 + this.imageMargin.top
+      , left = 0 + this.imageMargin.left
+      , targetWidth = model.widthFromHeight(height)
+      , targetHeight = model.heightFromWidth(width)
+      , css;
+
+    if (this.canvasRatio() < model.ratio()) {
+      css = {
+        width: width + 'px'
+      , height: 'auto'
+      , top: Math.round(top + (height / 2) + - (targetHeight / 2)) + 'px'
+      , left: left + 'px'
+      };
+    } else {
+      css = {
+        width: 'auto'
+      , height: height + 'px'
+      , top: top + 'px'
+      , left: Math.round(left + (width / 2) - (targetWidth / 2)) + 'px'
+      };
+    }
+
+    if (this.model.isDark()) {
+      css.top = 'auto'
+      css.bottom = m.menuHeight;
+    } else {
+      css.bottom = 'auto'
+    }
+
+    return css;
+  }
+
+, positionImage: function (model, $el) {
     model || (model = this.model.currentImage());
     $el || ($el = this.$img);
 
-    var height = m.canvasHeight;
-    var width = m.canvasWidth;
+    var css = this._normalCSS(model);
 
-    var css = {
-      position:'absolute'
-    , display: 'block'
-    , top: 0 + this.imageMargin.top
-    , left: 0 + this.imageMargin.left
-    , height: height + 'px'
-    , width: width + 'px'
-    };
-
-    if ( this.canvasRatio() < model.ratio() ) {
-      css.height = 'auto';
-    } else {
-      css.width = 'auto';
-    }
+    // TODO add fullscreen UI and logic
+    //var css = this._fullscreenCSS(model);
 
     $el.css(css).show();
   }

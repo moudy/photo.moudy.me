@@ -12,6 +12,8 @@
     - /_assets/header.css
     - /_assets/gallery_grid.css
     - /_assets/slideshow.css
+    - /_assets/theme_dark.css
+    - /_assets/loader.css
     {% endcss_asset_tag %}
 
     <script type="text/javascript">
@@ -20,7 +22,7 @@
     </script>
 
   </head>
-  <body>
+  <body {% if page.title contains 'Darkness' %}class="theme-dark"{% endif %}>
 
     {{ content }}
 

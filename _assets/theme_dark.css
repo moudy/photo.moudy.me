@@ -1,0 +1,59 @@
+.theme-dark a {
+  color: #eee;
+}
+
+body.theme-dark, .theme-dark .image-slideshow {
+  color: #eee;
+  background-color: black;
+}
+
+.theme-dark .title-link h2 {
+  color: #aaa;
+}
+
+.theme-dark .gallery-menu-link:hover {
+  color: #eee;
+  background-color: #222;
+}
+
+.theme-dark .gallery-menu-link.active {
+  color: #eee;
+  background-color: #222;
+}
+
+.theme-dark .gallery-menu.fixed {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.theme-dark .image-slideshow-menu,
+.theme-dark #footer {
+  background-color: black;
+  border-color: #161616;
+}
+
+
+.theme-dark .thumbnail-icon .square {
+  background-color: #ccc;
+}
+
+.theme-dark .thumbnail-icon:hover .square {
+  background-color: #eee;
+}
+
+.theme-dark .image-slideshow-controls .next,
+.theme-dark .image-slideshow-controls .previous {
+  color: #ccc;
+}
+
+.theme-dark .image-slideshow-controls .next:hover,
+.theme-dark .image-slideshow-controls .previous:hover {
+  color: #eee;
+}
+
+.theme-dark .image-slideshow-title {
+  color: #eee;
+}
+
+.theme-dark .gallery-grid-link:hover img {
+  box-shadow: 0 0px 2px #444;
+}

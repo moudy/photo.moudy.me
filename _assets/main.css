@@ -1,5 +1,6 @@
 html {
   background-color: #eee;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -60,7 +61,7 @@ ul {
   margin: 20px 0 0;
   padding: 60px 10px;
   text-align: center;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #eee;
   color: #999;
-  background-color: #eee;
+  background-color: #fcfcfc;
 }

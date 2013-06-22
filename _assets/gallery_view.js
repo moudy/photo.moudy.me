@@ -10,15 +10,7 @@ window.App.GalleryView = Backbone.View.extend({
   }
 
 , onImageIdChange: function (model, imageId) {
-    var css;
-    if (imageId) {
-      css = { overflow: 'hidden', height: '100%' };
-    } else {
-      css = { overflow: 'scroll', height: 'auto' };
-      this.render();
-    }
-
-    this.$htmlBody.css(css);
+    if (!imageId && !this.$el.children().length) this.render();
   }
 
 , onImageClick: function (e) {
@@ -42,7 +34,10 @@ window.App.GalleryView = Backbone.View.extend({
     models = models.map(function (model) { return model.toJSON(); });
 
     html = this.template({ images: models });
-    this.$el.html(html);
+
+    this.$el.fadeTo(50, 0, function () {
+      this.$el.html(html).fadeTo(150, 1);
+    }.bind(this));
 
     return this;
   }

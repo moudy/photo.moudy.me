@@ -19,6 +19,19 @@ window.App.Image = Backbone.Model.extend({
     return this.get('medium_url').split('_')[2].replace('.jpg','');
   }
 
+, widthFromHeight: function (height) {
+    var d = this.dimensions()
+      , w = (d.width * height) / d.height;
+
+    return Math.round(w);
+  }
+
+, heightFromWidth: function (width) {
+    var d = this.dimensions()
+      , h = (d.height * width) / d.width;
+
+    return Math.round(h);
+  }
 
 , dimensions: function () {
     var s = this.dimensionsString().split('x');
@@ -40,10 +53,17 @@ window.App.Image = Backbone.Model.extend({
 window.App.State = Backbone.Model.extend({
   initialize: function () {
     this.listenTo(this, 'change', this.onChange);
+    this.$body = $('body');
+  }
+
+, isDark: function () {
+    return !!Backbone.history.location.pathname.match("darkness");
   }
 
 , onChange: function (self, gallery) {
     Backbone.history.navigate(this.path());
+
+    this.$body.toggleClass('theme-dark', this.isDark());
   }
 
 , setImageById: function (id) {

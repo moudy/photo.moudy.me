@@ -1,35 +1,41 @@
 .image-slideshow {
   position: fixed;
-  top: -9999px;
+  top: 0;
   right: -9999px;
   height: 100%;
   width: 100%;
   opacity: 0;
   background: white;
-
-  -webkit-transition: -webkit-transform 0.2s ease-in-out;
-  -webkit-transform: scale(1.2);
-}
-
-.image-slideshow-image {
-  cursor: pointer;
+  transition: opacity 0.2s ease-out, right 0s ease-out 0.2s;
 }
 
 .image-slideshow.active {
-  top: 0;
   right: 0;
   opacity: 1;
-  -webkit-transform: scale(1);
+  transition: opacity 0.1s ease-out, right 0s;
+}
+
+
+.image-slideshow-image {
+  cursor: pointer;
+  position: absolute;
+  display: block;
 }
 
 .image-slideshow-menu {
   position: absolute;
-  bottom: 0;
+  bottom: -50px;
   right: 0;
   width: 100%;
   height: 140px;
-
+  background-color: white;
+  border-top: 1px solid transparent;
   text-align: center;
+}
+
+.image-slideshow.active .image-slideshow-menu {
+  bottom: 0;
+  transition: bottom 0.5s cubic-bezier(0.110, 0.545, 0.000, 1.650) 0.2s;
 }
 
 .image-slideshow-controls .next,
@@ -49,12 +55,22 @@
 .image-slideshow-controls .previous:active {
   -webkit-transform: scale(0.9);
 }
+
 .thumbnail-icon {
   width: 37px;
   height: 37px;
   padding: 9px 5px 5px;
   line-height: 0.6;
   display: inline-block;
+  position: relative;
+}
+
+.thumbnail-icon .blanket {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .thumbnail-icon:hover .square {
@@ -77,4 +93,5 @@
 .image-slideshow-title {
   margin: 0;
   font-weight: 200;
+  cursor: pointer;
 }
