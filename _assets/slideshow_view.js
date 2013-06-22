@@ -51,19 +51,21 @@ window.App.SlideshowView = Backbone.View.extend({
 , measurements: function () {
     if (this._mesuremants) return this._mesuremants;
 
+    var imageMargin = this.imageMargin;
+
     var m = {
       menuHeight: this.$menu.outerHeight()
-    , canvasWidth: this.$el.outerWidth()
+    , canvasWidth: this.$el.outerWidth() - (imageMargin.right + imageMargin.left)
     };
 
-    m.canvasHeight = this.$el.outerHeight() - m.menuHeight;
+    m.canvasHeight = (this.$el.outerHeight() - m.menuHeight) - (imageMargin.top + imageMargin.bottom);
 
     return this._measurements = m;
   }
 
 , canvasRatio: function () {
     var m = this.measurements();
-    return m.canvasWidth / m.canvasWidth;
+    return m.canvasWidth / m.canvasHeight;
   }
 
 , positionImage: function (model, $el) {
@@ -72,11 +74,8 @@ window.App.SlideshowView = Backbone.View.extend({
     model || (model = this.model.currentImage());
     $el || ($el = this.$img);
 
-    this.canvasRatio();
-    model.ratio();
-
-    var height = m.canvasHeight - (this.imageMargin.top + this.imageMargin.bottom);
-    var width = m.canvasWidth - (this.imageMargin.right + this.imageMargin.left);
+    var height = m.canvasHeight;
+    var width = m.canvasWidth;
 
     var css = {
       position:'absolute'
@@ -86,6 +85,12 @@ window.App.SlideshowView = Backbone.View.extend({
     , height: height + 'px'
     , width: width + 'px'
     };
+
+    if ( this.canvasRatio() < model.ratio() ) {
+      css.height = 'auto';
+    } else {
+      css.width = 'auto';
+    }
 
     $el.css(css).show();
   }
