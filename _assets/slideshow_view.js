@@ -16,12 +16,21 @@ window.App.SlideshowView = Backbone.View.extend({
     this.listenTo(App.imageLoader, 'loading', this.onLoading);
     this.listenTo(App.imageLoader, 'loaded', this.onLoaded);
 
+    this.listenTo(App.mouseMoveMonitor, 'tick', this.onMouseMoveTick);
+
     new App.SlideshowMenuView({
       el: this.$menu,
       model: this.model
     });
 
-    if (this.model.currentImage()) setTimeout(this.positionImage.bind(this), 0);
+    if (this.model.currentImage()) {
+      setTimeout(this.positionImage.bind(this), 0);
+      App.mouseMoveMonitor.start();
+    }
+  }
+
+, onMouseMoveTick: function (monitor, tickCount) {
+    this.$el.toggleClass('minimal', tickCount >= 4);
   }
 
 , onLoaded: function () {
@@ -51,7 +60,12 @@ window.App.SlideshowView = Backbone.View.extend({
   }
 
 , onImageIdChange: function (state, imageId) {
-    if (imageId) this.showImage(imageId);
+    if (imageId) {
+      this.showImage(imageId);
+      App.mouseMoveMonitor.start();
+    } else {
+      App.mouseMoveMonitor.stop();
+    }
     this.$el.toggleClass('active', !!imageId);
   }
 

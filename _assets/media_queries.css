@@ -36,7 +36,13 @@
   }
 
   .gallery-grid-item {
-    width: 50%;
+    width: 49%;
   }
 
+}
+
+@media (min-width: 1200px) {
+  .gallery-grid-item {
+    width: 24%;
+  }
 }

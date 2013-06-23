@@ -1,4 +1,6 @@
 var domReady = function () {
+  App.mouseMoveMonitor = new App.MouseMoveMonitor();
+
   App.state = new App.State({
     gallery: window.App.bootstrap.gallery
   , imageId: window.App.bootstrap.imageId

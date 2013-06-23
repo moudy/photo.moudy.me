@@ -35,8 +35,14 @@
 
 .image-slideshow.active .image-slideshow-menu {
   bottom: 0;
-  transition: bottom 0.5s cubic-bezier(0.110, 0.545, 0.000, 1.650) 0.2s;
+  transition: bottom 0.5s cubic-bezier(0.110, 0.545, 0.000, 1.650) 0.2s, opacity 0.2s;
 }
+
+.image-slideshow.minimal .image-slideshow-menu {
+  opacity: 0;
+  transition: opacity 2s;
+}
+
 
 .image-slideshow-controls .next,
 .image-slideshow-controls .previous {
