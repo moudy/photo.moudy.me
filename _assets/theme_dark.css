@@ -21,7 +21,7 @@ body.theme-dark, .theme-dark .image-slideshow {
   background-color: #222;
 }
 
-.theme-dark .gallery-menu.fixed {
+.theme-dark .gallery-menu {
   background: rgba(0, 0, 0, 0.9);
 }
 
@@ -57,3 +57,8 @@ body.theme-dark, .theme-dark .image-slideshow {
 .theme-dark .gallery-grid-link:hover img {
   box-shadow: 0 0px 2px #444;
 }
+
+.theme-dark .gallery-menu.fixed {
+  border-color: #161616;
+}
+

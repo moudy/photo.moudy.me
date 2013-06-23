@@ -5,10 +5,14 @@ is_dark: true
 ---
 
 <header id="header">
-  <a class="title-link" href="/"><h1 class="my-name">{{site.title}}</h1> <h2>Photography</h2></a>
+  <a class="title-link" data-slug="" href="/"><h1 class="my-name">{{site.title}}</h1> <h2>Photography</h2></a>
 
   <div class="gallery-menu">
-    <ul>
+    <a href="#" class="gallery-menu-dropdown-button">
+      <span class="gallery-menu-name">{{current_gallery.name}}</span>
+      &darr;
+    </a>
+    <ul class="gallery-menu-list">
       {% for gallery in galleries %}
       {% unless gallery.name == "All Photos" %}
       <li class="gallery-menu-item">
@@ -64,11 +68,7 @@ is_dark: true
     </div>
 
     <h3 class="image-slideshow-title back-to-gallery">
-      {% if current_gallery %}
-        {{ current_gallery.name }}
-      {% else %}
-        All Photos
-      {% endif %}
+      {{ current_gallery.name }}
     </h3>
   </div>
 </div>

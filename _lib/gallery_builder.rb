@@ -28,7 +28,8 @@ class GalleryBuilder
 
     # add all images and shuffle
     data = payload.merge({
-      'images' => all_images.shuffle
+      'images' => all_images.shuffle,
+      'current_gallery' => SuperGallery.new.to_hash
     })
 
     # create main page with all images

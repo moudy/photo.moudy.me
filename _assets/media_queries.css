@@ -1,0 +1,42 @@
+@media (max-width: 600px) {
+  .gallery-menu {
+    padding: 0;
+    border-bottom: 1px solid #DDD;
+    overflow: hidden;
+  }
+
+  .gallery-menu-dropdown-button {
+    padding: 8px;
+    display: block;
+  }
+
+  .gallery-menu-name {
+    margin-right: 8px;
+  }
+
+  .gallery-menu-list {
+    display: none;
+  }
+
+  .gallery-menu-item {
+    display: block;
+  }
+
+  #header.open .gallery-menu-list {
+    display: block;
+  }
+
+  #header.open .gallery-menu-link.active {
+    display: none;
+  }
+
+  .theme-dark .gallery-menu {
+    background-color: rgba(0, 0, 0, 0.9);
+    border-color: #161616;
+  }
+
+  .gallery-grid-item {
+    width: 50%;
+  }
+
+}

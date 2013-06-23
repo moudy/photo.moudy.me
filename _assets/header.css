@@ -46,13 +46,14 @@
   padding: 10px;
   position: absolute;
   width: 100%;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .gallery-menu.fixed {
   position: fixed;
   top: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid #DDD;
 }
 
 .gallery-menu-item {
@@ -82,4 +83,8 @@
 .gallery-menu-link.active {
   background-color: #ddd;
   cursor: default;
+}
+
+.gallery-menu-dropdown-button {
+  display: none;
 }
