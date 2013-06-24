@@ -1,4 +1,5 @@
 var domReady = function () {
+  App.router = new App.Router();
   App.mouseMoveMonitor = new App.MouseMoveMonitor();
 
   App.state = new App.State({
@@ -32,7 +33,7 @@ var domReady = function () {
 
   $('body').addClass('init-ui');
 
-  Backbone.history.start({ pushState: true });
+  Backbone.history.start({ pushState: true, silent: true });
 };
 
 $(domReady);
