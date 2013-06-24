@@ -86,4 +86,5 @@ DEPENDENCIES
   jekyll (~> 1.0)
   jekyll-asset-pipeline!
   mini_magick
+  pry
   yui-compressor

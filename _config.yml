@@ -1,4 +1,4 @@
-name: Your New Jekyll Site
+name: Moudy Photo
 pygments: true
 
 raw_image_path: _photos
@@ -12,9 +12,7 @@ images:
   processed_path: photos
   file_name_seperator: _
   sizes:
-    large: 3000x1000
     medium: 1200x1200
-    small: 600x600
     thumbnail: 300x300
 
 # hash passed into gallery.html

@@ -1,3 +1,4 @@
+require 'pry'
 require 'fileutils'
 require_relative 'gallery_renderer'
 require_relative 'gallery_builder'
@@ -13,6 +14,16 @@ class Gallery
   def process_images
     FileUtils.mkdir_p path
     images.map(&:process_images)
+
+    cleanup_old_images
+  end
+
+  def cleanup_old_images
+    current_image_ids = images.map(&:id)
+
+    Dir.glob("#{path}/*").each do |f|
+      File.delete(f) unless current_image_ids.any? { |i| /#{i}/.match File.basename(f) }
+    end
   end
 
   def create_page(payload)

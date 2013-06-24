@@ -1,3 +1,4 @@
+require 'pry'
 require_relative 'gallery_builder'
 require_relative 'gallery_renderer'
 require 'digest/md5'
@@ -10,6 +11,10 @@ class GalleryImage
     @file_name, @gallery_slug = file_name, gallery_slug
   end
 
+  def id
+    Digest::MD5.hexdigest File.basename(source_file).split('-')[1]
+  end
+
   def to_hash
     {
       'id' => id,
@@ -18,7 +23,12 @@ class GalleryImage
   end
 
   def process_images
-    sizes.each { |name, size| process(name, size) }
+    if processed?
+      puts "Already processed file: #{source_file} for id: #{id}"
+    else
+      puts "Processing file: #{source_file}"
+      sizes.each { |name, size| process(name, size) }
+    end
   end
 
   def create_page(payload)
@@ -68,17 +78,20 @@ class GalleryImage
     "#{File.join [processed_path, gallery_slug, target_filename(size)]}.jpg"
   end
 
+  def processed?
+    !Dir.glob("#{File.join [processed_path, gallery_slug, id]}#{seperator}#{cache_bust}*").empty?
+  end
+
   def target_filename(size)
-    cache_bust = source_file.mtime.to_i
     [id, cache_bust, size].join(seperator)
+  end
+
+  def cache_bust
+    source_file.mtime.to_i
   end
 
   def sizes
     GalleryBuilder.image_config['sizes']
-  end
-
-  def id
-    Digest::MD5.hexdigest File.basename(source_file).split('-')[1]
   end
 
   def source_file
