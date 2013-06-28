@@ -62,8 +62,12 @@ window.App.State = Backbone.Model.extend({
 
 , onChange: function (self, gallery) {
     Backbone.history.navigate(this.path());
-
+    document.title = this.documentTitle();
     this.$body.toggleClass('theme-dark', this.isDark());
+  }
+
+, documentTitle: function () {
+    return [this.currentGallery().get('name'), 'Moudy', 'Photography'].join(' | ');
   }
 
 , setImageById: function (id) {
